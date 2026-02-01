@@ -108,6 +108,7 @@ option(LLAMA_BUILD_TESTS    "llama: build tests"          ${LLAMA_STANDALONE})
 option(LLAMA_BUILD_TOOLS    "llama: build tools"          ${LLAMA_STANDALONE})
 option(LLAMA_BUILD_EXAMPLES "llama: build examples"       ${LLAMA_STANDALONE})
 option(LLAMA_BUILD_SERVER   "llama: build server example" ${LLAMA_STANDALONE})
+option(LLAMA_BUILD_MTMD     "llama: build mtmd library"   OFF)
 option(LLAMA_TOOLS_INSTALL  "llama: install tools"        ${LLAMA_TOOLS_INSTALL_DEFAULT})
 
 # 3rd party libs
@@ -233,6 +234,11 @@ endif()
 
 if (LLAMA_BUILD_COMMON AND LLAMA_BUILD_TOOLS)
     add_subdirectory(tools)
+endif()
+
+# Build mtmd independently if requested (even when LLAMA_BUILD_TOOLS is OFF)
+if (LLAMA_BUILD_COMMON AND LLAMA_BUILD_MTMD AND NOT LLAMA_BUILD_TOOLS)
+    add_subdirectory(tools/mtmd)
 endif()
 
 #
